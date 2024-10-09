@@ -19,8 +19,10 @@ class MarienbadJvsJ {
 		int[] allumettes = creerTableau(nbLignes);
 		afficheAllumettes(allumettes);
 		
+		int nbTours = 0;
+		
 		while (!jeuEstFini(allumettes)) {
-			// TODO
+			nbTours++;
 		}
 	}
 	
@@ -98,6 +100,7 @@ class MarienbadJvsJ {
 	 * @param allumettes: tableau de jeu
 	 */
 	void actionJoueur(int[] allumettes) {
+		
 	}
 	
 	/**
@@ -113,5 +116,13 @@ class MarienbadJvsJ {
 			i++;
 		}
 		return estVide;
+	}
+	
+	/**
+	 * affiche le nom du joueur pour qui c'est le tour de jouer
+	 * @param numéro du tour de jeu
+	 */
+	void afficheJoueur(int nbTours) {
+		
 	}
 }
