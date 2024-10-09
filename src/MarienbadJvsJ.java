@@ -17,9 +17,28 @@ class MarienbadJvsJ {
 		int nbTours = 0;
 		
 		while (!jeuEstFini(allumettes)) {
+			afficheJoueur(nbTours, j1, j2);
+			actionJoueur(allumettes);
+			afficheAllumettes(allumettes);
 			nbTours++;
-			// TODO
 		}
+		finPartie(j1, j2, nbTours);
+	}
+	
+	/**
+	 * Affiche l'ecran de fin
+	 * @param j1 nom du joueur 1
+	 * @param j2 nom du joueur 2
+	 * @param nbTours nombre de tours de la partie
+	 */
+	void finPartie(String j1, String j2, int nbTours) {
+		System.out.println("\n\n-----------------------------------------------------\n\t* Partie terminee *\t\n-----------------------------------------------------\n\n");
+		if(nbTours%2 == 1){
+			System.out.println("Felicitation a " + j1 + " qui remporte la partie!");
+		}else{
+			System.out.println("Felicitation a " + j2 + " qui remporte la partie!");
+		}
+		System.out.println("Partie gagnee en " + nbTours + "tours");
 	}
 	
 	/**
@@ -99,13 +118,13 @@ class MarienbadJvsJ {
 		// Demande au joueur le numéro de la ligne
 		int ligne;
 		do {
-			ligne = SimpleInput.getInt("Numéro de la ligne à prélever : ") - 1;
+			ligne = SimpleInput.getInt("Numero de la ligne a prelever : ") - 1;
 		} while (ligne < 0 || ligne >= allumettes.length || allumettes[ligne] <= 0);
 		
 		// Demande au joueur le nombre d'allumettes à enlever
 		int nb;
 		do {
-			nb = SimpleInput.getInt("Nombre d'allumettes à enlever : ") - 1;
+			nb = SimpleInput.getInt("Nombre d'allumettes a enlever : ");
 		} while (nb < 0);
 		
 		// Retire les allumettes du tableau
@@ -129,9 +148,15 @@ class MarienbadJvsJ {
 	
 	/**
 	 * affiche le nom du joueur pour qui c'est le tour de jouer
-	 * @param numéro du tour de jeu
+	 * @param nbTours numéro du tour de jeu
+	 * @param j1 nom du joueur1
+	 * @param j2 nom du joueur2
 	 */
-	void afficheJoueur(int nbTours) {
-		
+	void afficheJoueur(int nbTours, String j1, String j2) {
+		if (nbTours%2 == 0) {
+			System.out.println("\n-> Au tour de " + j1 + " de jouer");
+		}else {
+			System.out.println("\n-> Au tour de " + j2 + " de jouer");
+		}
 	}
 }
