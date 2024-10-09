@@ -5,13 +5,19 @@
 
 class MarienbadJvsJ {
 	void principal() {
+		/*
+		int nbtLignes = SimpleInput.getInt("   -> Choississez le nombre de rangees pour demarer une partie (entre 2 et 15): ");
+		String nomJoueur1 = SimpleInput.getString("   -> Choisissez un nom pour le joueur 1: ");
+		String nomJoueur2 = SimpleInput.getString("\n   -> Choisissez un nom pour le joueur 2: ");
+		*/
 		afficheRegles();
 		
 		String j1 = demandeNom("joueur 1");
 		String j2 = demandeNom("joueur 2");
 		int nbLignes = demandeNbLignes();
 
-		int[] allumettes = creerTableau();
+		int[] allumettes = creerTableau(nbLignes);
+		afficheAllumettes(allumettes);
 		
 		while (!jeuEstFini(allumettes)) {
 			// TODO
@@ -66,7 +72,24 @@ class MarienbadJvsJ {
 	 * Affiche les lignes d'allumettes dans la consolle
 	 * @param allumettes: tableau de jeu
 	 */
-	void afficheLignes(int[] allumettes) {
+	void afficheAllumettes(int[] allumettes) {
+		int nbAllumettesLigne;
+		System.out.println();
+		for (int i = 0; i < allumettes.length; i++) {
+			nbAllumettesLigne = allumettes[i];
+			System.out.print("\t");
+			for (int j = 0; j < nbAllumettesLigne; j++) {
+				System.out.print("o  ");
+				
+			}
+			System.out.println();
+			System.out.print((i + 1) + ":\t");
+			for (int j = 0; j < nbAllumettesLigne; j++) {
+				System.out.print("|  ");
+				
+			}
+			System.out.println();
+		}
 	}
 	
 	/**
