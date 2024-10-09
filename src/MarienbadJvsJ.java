@@ -5,11 +5,6 @@
 
 class MarienbadJvsJ {
 	void principal() {
-		/*
-		int nbtLignes = SimpleInput.getInt("   -> Choississez le nombre de rangees pour demarer une partie (entre 2 et 15): ");
-		String nomJoueur1 = SimpleInput.getString("   -> Choisissez un nom pour le joueur 1: ");
-		String nomJoueur2 = SimpleInput.getString("\n   -> Choisissez un nom pour le joueur 2: ");
-		*/
 		afficheRegles();
 		
 		String j1 = demandeNom("joueur 1");
@@ -20,9 +15,11 @@ class MarienbadJvsJ {
 		afficheAllumettes(allumettes);
 		
 		int nbTours = 0;
+		int[] allumettes = creerTableau();
 		
 		while (!jeuEstFini(allumettes)) {
 			nbTours++;
+			// TODO
 		}
 	}
 	
@@ -100,7 +97,20 @@ class MarienbadJvsJ {
 	 * @param allumettes: tableau de jeu
 	 */
 	void actionJoueur(int[] allumettes) {
+		// Demande au joueur le numéro de la ligne
+		int ligne;
+		do {
+			numLigne = SimpleInput.getInt("Numéro de la ligne à prélever : ") - 1;
+		} while (ligne < 0 || ligne >= allumettes.length || allumettes[ligne] <= 0);
 		
+		// Demande au joueur le nombre d'allumettes à enlever
+		int nbAllumettes;
+		do {
+			nb = SimpleInput.getInt("Nombre d'allumettes à enlever : ") - 1;
+		} while (nb < 0);
+		
+		// Retire les allumettes du tableau
+		allumettes[numLigne] = max(0, allumettes[ligne] - nb);
 	}
 	
 	/**
