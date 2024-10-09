@@ -15,7 +15,6 @@ class MarienbadJvsJ {
 		afficheAllumettes(allumettes);
 		
 		int nbTours = 0;
-		int[] allumettes = creerTableau();
 		
 		while (!jeuEstFini(allumettes)) {
 			nbTours++;
@@ -100,17 +99,17 @@ class MarienbadJvsJ {
 		// Demande au joueur le numéro de la ligne
 		int ligne;
 		do {
-			numLigne = SimpleInput.getInt("Numéro de la ligne à prélever : ") - 1;
+			ligne = SimpleInput.getInt("Numéro de la ligne à prélever : ") - 1;
 		} while (ligne < 0 || ligne >= allumettes.length || allumettes[ligne] <= 0);
 		
 		// Demande au joueur le nombre d'allumettes à enlever
-		int nbAllumettes;
+		int nb;
 		do {
 			nb = SimpleInput.getInt("Nombre d'allumettes à enlever : ") - 1;
 		} while (nb < 0);
 		
 		// Retire les allumettes du tableau
-		allumettes[numLigne] = max(0, allumettes[ligne] - nb);
+		allumettes[ligne] = Math.max(0, allumettes[ligne] - nb);
 	}
 	
 	/**
