@@ -40,7 +40,7 @@ class MarienbadJvsO {
 		int difficulte;
 		do{
 			difficulte = SimpleInput.getInt("   -> Choississez une difficulte (entre 1 et 4): ");
-		}while(difficulte>5 || difficulte<1);
+		}while(difficulte > 5 || difficulte < 1);
 		return difficulte;
 	}
 	
@@ -161,6 +161,40 @@ class MarienbadJvsO {
 	 * @param allumettes le tabeau du jeu
 	 */
 	void actionOrdinateur(int difficulte, int[] allumettes) {
-		
+		if (difficulte == 1){
+			difficulte1(allumettes);
+		}else if(difficulte == 2) {
+			difficulte2(allumettes);
+		}else if(difficulte == 3) {
+			difficulte3(allumettes);
+		}else {
+			difficulte4(allumettes);
+		}
+	}
+	/**
+	 * joue l'action du robot de difficultée 1
+	 * @param allumettes le tabeau du jeu
+	 */
+	void difficulte1(int[] allumettes) {
+		allumettes[(int) (Math.random() * )] = Math.max(0, allumettes[ligne] - nb);
+	}
+	/**
+	 * joue l'action du robot de difficultée 2
+	 * @param allumettes le tabeau du jeu
+	 */
+	void difficulte2(int[] allumettes) {
+	}
+	/**
+	 * joue l'action du robot de difficultée 3
+	 * @param allumettes le tabeau du jeu
+	 */
+	void difficulte3(int[] allumettes) {
+			
+	}
+	/**
+	 * joue l'action du robot de difficultée 4
+	 * @param allumettes le tabeau du jeu
+	 */
+	void difficulte4(int[] allumettes) {
 	}
 }
