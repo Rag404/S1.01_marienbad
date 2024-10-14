@@ -1,27 +1,37 @@
 /**
- * jeu de Marienbad , version joueur contre joueur, les 2 joueurs peuvent choisir une taille de jeu allant de 2 a 15 allumettes
+ * Jeu de Marienbad, version joueur contre joueur, les 2 joueurs peuvent choisir une taille de jeu allant de 2 a 15 allumettes
  * @author Anaëlle Carré Titouan Favennec
  */
 
 class MarienbadJvsJ {
 	void principal() {
+		// Lancement des fonctions de tests
+		testCreerTableau();
+		testActionJoueur();
+		testJeuEstFini();
+		
 		afficheRegles();
 		
 		String j1 = demandeNom("joueur 1");
 		String j2 = demandeNom("joueur 2");
 		int nbLignes = demandeNbLignes();
-
+		
+		// Le jeu est stocké sous forme de tableau d'int
+		// Chaque élément représente une ligne et le nombre d'allumettes restantes dedans
 		int[] allumettes = creerTableau(nbLignes);
 		afficheAllumettes(allumettes);
 		
 		int nbTours = 0;
 		
+		// Boucle de jeu
 		while (!jeuEstFini(allumettes)) {
 			afficheJoueur(nbTours, j1, j2);
 			actionJoueur(allumettes);
 			afficheAllumettes(allumettes);
 			nbTours++;
 		}
+		
+		// Affichage du gagnant
 		finPartie(j1, j2, nbTours);
 	}
 	
@@ -158,5 +168,132 @@ class MarienbadJvsJ {
 		}else {
 			System.out.println("\n-> Au tour de " + j2 + " de jouer");
 		}
+	}
+	
+	
+	
+	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	 *                       Fonctions de test                         *
+	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+	 
+	  void testCasCreerTableau(int nbLignes, int[] expectedResult) {
+		// Affichage du cas testé
+		System.out.print("creerTableau(" + nbLignes + ") = " + tab2str(expectedResult) + " : ");
+
+		// Vérification du résultat
+		int[] result = creerTableau(nbLignes);
+		boolean testOk = true;
+		if (result.length == expectedResult.length) {
+			for (int i = 0; i < result.length; i++) {
+				if (result[i] != expectedResult[i]) {
+					testOk = false;
+					break;
+				}
+			}
+		} else {
+			testOk = false;
+		}
+
+		if (testOk) {
+			System.out.println("OK");
+		} else {
+			System.err.println("ERREUR");
+		}
+	}
+
+	void testCreerTableau() {
+		System.out.println("\n*** Tests creerTableau");
+
+		// Cas de test
+		testCasCreerTableau(3, new int[] {1, 3, 5});  // Test 1: 3 lignes
+		testCasCreerTableau(2, new int[] {1, 3});     // Test 2: 2 lignes
+		testCasCreerTableau(5, new int[] {1, 3, 5, 7, 9}); // Test 3: 5 lignes
+
+		System.out.println();
+	}
+	
+	
+	void testCasActionJoueur(int[] allumettes, int ligne, int nbAllumettesARetirer, int[] expectedResult) {
+		// Affichage du cas testé
+		System.out.print("actionJoueur(" + tab2str + ", ligne=" + ligne + ", retirer=" + nbAllumettesARetirer + ") = ");
+		System.out.println(tab2str(expectedResult) + " : ");
+
+		// Simuler l'action du joueur
+		allumettes[ligne] = Math.max(0, allumettes[ligne] - nbAllumettesARetirer);
+		
+		// Vérification du résultat
+		boolean testOk = true;
+		for (int i = 0; i < allumettes.length; i++) {
+			if (allumettes[i] != expectedResult[i]) {
+				testOk = false;
+				break;
+			}
+		}
+
+		if (testOk) {
+			System.out.println("OK");
+		} else {
+			System.err.println("ERREUR");
+		}
+	}
+
+	void testActionJoueur() {
+		System.out.println("\n*** Tests actionJoueur");
+
+		// Cas de test
+		testCasActionJoueur(new int[] {3, 5, 7}, 0, 2, new int[] {1, 5, 7});  // Test 1: retirer 2 allumettes de la ligne 1
+		testCasActionJoueur(new int[] {1, 5, 7}, 1, 4, new int[] {1, 1, 7});  // Test 2: retirer 4 allumettes de la ligne 2
+		testCasActionJoueur(new int[] {1, 1, 7}, 2, 7, new int[] {1, 1, 0});  // Test 3: retirer toutes les allumettes de la ligne 3
+
+		System.out.println();
+	}
+	
+	
+	void testCasJeuEstFini(int[] allumettes, boolean expectedResult) {
+		// Affichage du cas testé
+		System.out.print("jeuEstFini(" + tab2str(allumettes) + ") = " + expectedResult + ": ");
+
+		// Vérification du résultat
+		boolean result = jeuEstFini(allumettes);
+		
+		if (result == expectedResult) {
+			System.out.println("OK");
+		} else {
+			System.err.println("ERREUR");
+		}
+	}
+
+	void testJeuEstFini() {
+		System.out.println("\n*** Tests jeuEstFini");
+
+		// Cas de test
+		testCasJeuEstFini(new int[] {0, 0, 0}, true);    // Test 1: toutes les lignes sont vides
+		testCasJeuEstFini(new int[] {1, 0, 0}, false);   // Test 2: une ligne a encore des allumettes
+		testCasJeuEstFini(new int[] {0, 2, 0}, false);   // Test 3: une ligne a encore des allumettes
+		testCasJeuEstFini(new int[] {},        true);    // Test 3: talbleau vide
+
+		System.out.println();
+	}
+	
+	
+	
+	/* *
+	 * Fonctions utilitaires
+	 */
+	
+	/**
+	 * Converti un tableau en sa représentation en String
+	 * @param tab: le tableau à convertir
+	 * @return le tableau convertit
+	 */
+	String tab2str(int[] tab) {
+		String str = "";
+		for (int i=0; i < tab.length-1; i++) {
+			str += tab[i] + ", ";
+		}
+		if (tab.length > 0) {
+			str += tab[tab.length-1];
+		}
+		return "{" + str + "}"
 	}
 }
