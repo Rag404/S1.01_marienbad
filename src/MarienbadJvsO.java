@@ -182,6 +182,7 @@ class MarienbadJvsO {
 	 * @param allumettes le tabeau du jeu
 	 */
 	void actionOrdinateur(int difficulte, int[] allumettes) {
+		System.out.println(" * Tour de l'ordinateur *");
 		if (difficulte == 1){
 			difficulte1(allumettes);
 		}else if(difficulte == 2) {
@@ -211,18 +212,198 @@ class MarienbadJvsO {
 	 * @param allumettes le tabeau du jeu
 	 */
 	void difficulte2(int[] allumettes) {
+		int column;
+		do{
+			column = (int) (Math.random() * (allumettes.length - 1));
+		}while (allumettes[column] == 0);
+		
+		if (plusQuneLigne(allumettes)){
+			
+		}
+		int nbAllumettes = (int) (Math.random() * allumettes[column] + 1);
+		
+		allumettes[column] = Math.max(0, allumettes[column] - nbAllumettes);
 	}
 	/**
 	 * joue l'action du robot de difficultée 3
 	 * @param allumettes le tabeau du jeu
 	 */
 	void difficulte3(int[] allumettes) {
-			
+		
 	}
 	/**
 	 * joue l'action du robot de difficultée 4
 	 * @param allumettes le tabeau du jeu
 	 */
 	void difficulte4(int[] allumettes) {
+		String[] allumettesBinaire = new String[allumettes.length];
+		int lignesPleines = 0;
+
+		// Compte le nombre de lignes non vides
+		for (int i = 0; i < allumettes.length; i++) {
+			if (allumettes[i] != 0) {
+				lignesPleines++;
+			}
+		}
+
+		// Cas ou il ne reste qu'une seule ligne avec des allumettes
+		if (lignesPleines == 1) {
+			for (int i = 0; i < allumettes.length; i++) {
+				if (allumettes[i] != 0) {
+					allumettes[i] = 0;
+				}
+			}
+		}
+
+		// Cas où il reste plus de 6 lignes avec des allumettes
+		if (lignesPleines > 6) {
+			int column;
+			do {
+				column = (int) (Math.random() * allumettes.length);
+			} while (allumettes[column] == 0);
+
+			allumettes[column] = 0; // Vider complètement une ligne choisie au hasard
+		}
+		if (lignesPleines <= 6 && lignesPleines > 1){
+			// Convertis les allumettes en binaire
+			for (int i = 0; i < allumettes.length; i++) {
+				allumettesBinaire[i] = Integer.toBinaryString(allumettes[i]);
+			}
+
+			// Calcule la longueur maximale des chaînes binaires
+			int maxBits = 0;
+			for (int i = 0; i < allumettesBinaire.length; i++) {
+				if (allumettesBinaire[i].length() > maxBits) {
+					maxBits = allumettesBinaire[i].length();
+				}
+			}
+
+			// Additionne les bits
+			int[] additionBinaire = new int[maxBits];
+			for (int i = 0; i < maxBits; i++) {
+				for (int j = 0; j < allumettesBinaire.length; j++) {
+					if (allumettesBinaire[j].length() > i && allumettesBinaire[j].charAt(allumettesBinaire[j].length() - 1 - i) == '1') {
+						additionBinaire[i]++;
+					}
+				}
+			}
+
+			// Essayer de rendre tous les éléments de additionBinaire pairs en modifiant une ligne
+			boolean coupTrouve = false;
+			int ligne = allumettes.length -1;
+			
+			while (ligne < allumettes.length && !coupTrouve) {
+				if (allumettes[ligne] != 0) {
+					int original = allumettes[ligne];
+					int enlever = original;
+					while (enlever > 0 && !coupTrouve) {
+
+						// Recalculer additionBinaire après le changement
+						String[] tempAllumettesBinaire = new String[allumettes.length];
+						for (int i = 0; i < allumettes.length; i++) {
+							tempAllumettesBinaire[i] = Integer.toBinaryString(allumettes[i]);
+						}
+
+						int[] tempAdditionBinaire = new int[maxBits];
+						for (int i = 0; i < maxBits; i++) {
+							for (int nbBin = 0; nbBin < tempAdditionBinaire.length; nbBin++) {
+								if (tempAllumettesBinaire[nbBin].length() > i && tempAllumettesBinaire[nbBin].charAt(tempAllumettesBinaire[nbBin].length() - 1 - i) == '1') {
+									tempAdditionBinaire[i]++;
+								}
+							}
+						}
+
+						// Vérifier si tous les bits sont pairs
+						boolean tousPairs = true;
+						for (int bit = 0; bit < tempAdditionBinaire.length; bit++) {
+							if (tempAdditionBinaire[bit] % 2 != 0) {
+								tousPairs = false;
+							}
+						}
+
+						// Si tous les bits sont pairs, on a trouvé un coup valide
+						if (tousPairs) {
+							coupTrouve = true;
+						}
+						allumettes[ligne] = original - enlever;
+						enlever--;
+					}
+
+					// Remettre la ligne à sa valeur d'origine si aucun coup n'est trouvé pour cette ligne
+					if (!coupTrouve) {
+						allumettes[ligne] = original;
+					}
+				}
+				ligne--;
+			}
+
+			// Si aucun coup stratégique n'a été trouvé, passer à la difficulté inférieure
+			if (!coupTrouve) {
+				difficulte1(allumettes);
+			}
+		}
+	}
+	
+	/**
+	 * vérifie si il ne reste plus qu'une seule ligne d'alumette disponnible
+	 * @param allumettes le tabeau du jeu
+	 * @return vrai si il ne reste plus seule ligne
+	 */
+	boolean plusQuneLigne(int[] allumettes) {
+		return true;
+	}
+	
+	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	 *                     Fonctions utilitaires                       *
+	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+	
+	/**
+	 * Converti un tableau en sa représentation en String
+	 * @param tab: le tableau à convertir
+	 * @return le tableau convertit
+	 */
+	String tab2str(String[] tab) {
+		String str = "";
+		for (int i=0; i < tab.length-1; i++) {
+			str += tab[i] + ", ";
+		}
+		if (tab.length > 0) {
+			str += tab[tab.length-1];
+		}
+		return "{" + str + "}";
+	}
+	
+	String tabInt2str(int[] tab) {
+		String str = "";
+		for (int i=0; i < tab.length-1; i++) {
+			str += tab[i] + ", ";
+		}
+		if (tab.length > 0) {
+			str += tab[tab.length-1];
+		}
+		return "{" + str + "}";
+	}
+	
+	/**
+	 * recherche et renvoie la plus grande valeur dans un tableau
+	 * @param t: le tableau dans lequel chercher
+	 * @param n: la positions , 0 sera le premier plus grand, 1 le 2 eme...
+	 * @return la plus frand veleur du tableau
+	 */
+	int plusGrand(int[] t, int n){
+		int temp;
+		int[] tTrie = new int[t.length];
+		
+		// Trier le tableau de manière décroissante
+		for (int i = 0; i < tTrie.length - 1; i++) {
+			for (int j = i + 1; j < tTrie.length; j++) {
+				if (tTrie[i] < tTrie[j]) {
+					temp = tTrie[i];
+					tTrie[i] = tTrie[j];
+					tTrie[j] = temp;
+				}
+			}
+		}
+		return tTrie[n];
 	}
 }
