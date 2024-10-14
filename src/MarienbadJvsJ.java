@@ -176,7 +176,7 @@ class MarienbadJvsJ {
 	 *                       Fonctions de test                         *
 	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 	 
-	  void testCasCreerTableau(int nbLignes, int[] expectedResult) {
+	void testCasCreerTableau(int nbLignes, int[] expectedResult) {
 		// Affichage du cas testé
 		System.out.print("creerTableau(" + nbLignes + ") = " + tab2str(expectedResult) + " : ");
 
@@ -277,9 +277,9 @@ class MarienbadJvsJ {
 	
 	
 	
-	/* *
-	 * Fonctions utilitaires
-	 */
+	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	 *                     Fonctions utilitaires                       *
+	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 	
 	/**
 	 * Converti un tableau en sa représentation en String

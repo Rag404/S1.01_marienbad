@@ -11,25 +11,31 @@ class MarienbadJvsO {
 		String j = SimpleInput.getString("   -> Choisissez un nom : ");
 		int nbLignes = demandeNbLignes();
 		int difficulte = demandeDifficulte();
-
+		boolean ordre = demanderOrdre();  // false = joueur commence, true = ordi commence
+		
+		// Le jeu est stocké sous forme de tableau d'int
+		// Chaque élément représente une ligne et le nombre d'allumettes restantes dedans
 		int[] allumettes = creerTableau(nbLignes);
 		afficheAllumettes(allumettes);
 		
 		int nbTours = 0;
+		if (ordre == true) nbTours = 1;
 		
+		// Boucle de jeu
 		while (!jeuEstFini(allumettes)) {
-			
 			if (nbTours%2 == 0){
 				System.out.println("\n-> Au tour de " + j + " de jouer");
 				actionJoueur(allumettes);
-			}else{
+			} else {
 				actionOrdinateur(difficulte, allumettes);
 			}
 			
 			afficheAllumettes(allumettes);
 			nbTours++;
 		}
-		finPartie(j, nbTours);
+		
+		// Affichage du gagnant
+		finPartie(j, nbTours, ordre);
 	}
 	
 	/**
@@ -38,9 +44,9 @@ class MarienbadJvsO {
 	 */
 	int demandeDifficulte() {
 		int difficulte;
-		do{
+		do {
 			difficulte = SimpleInput.getInt("   -> Choississez une difficulte (entre 1 et 4): ");
-		}while(difficulte > 5 || difficulte < 1);
+		} while(difficulte > 5 || difficulte < 1);
 		return difficulte;
 	}
 	
@@ -48,14 +54,17 @@ class MarienbadJvsO {
 	 * Affiche l'ecran de fin
 	 * @param j nom du joueur 1
 	 * @param nbTours nombre de tours de la partie
+	 * @param ordre: l'ordre de jeu (false si joueur a commencé, true si c'est l'ordi)
 	 */
-	void finPartie(String j, int nbTours) {
+	void finPartie(String j, int nbTours, boolean ordre) {
 		System.out.println("\n\n-----------------------------------------------------\n\t* Partie terminee *\t\n-----------------------------------------------------\n\n");
 		if(nbTours%2 == 1){
 			System.out.println("Felicitation a " + j + " qui remporte la partie!");
 		}else{
 			System.out.println(" O,nO Dommage, c'est l'ordinnateur qui gagne... ");
 		}
+		
+		if (ordre == true) nbTours -= 1;
 		System.out.println("Partie gagnee en " + nbTours + "tours");
 	}
 	
@@ -79,6 +88,18 @@ class MarienbadJvsO {
 			nbLignes = SimpleInput.getInt("   -> Choississez le nombre de rangees pour demarer une partie (entre 2 et 15): ");
 		} while (nbLignes < 2 || nbLignes > 15);
 		return nbLignes;
+	}
+	
+	/**
+	 * Demande à l'utilisateur l'ordre de passage du jeu
+	 * @return false si l'utilisateur joue en premier, sinon true
+	 */
+	boolean demandeOrdre() {
+		String str;
+		do {
+			str = SimpleInput.getString("Qui joue en premier ? ('joueur' ou 'ordi') : ");
+		} while (str != "joueur" || str != "ordi");
+		return str == "ordi";
 	}
 	
 	/**
