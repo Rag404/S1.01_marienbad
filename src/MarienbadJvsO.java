@@ -292,7 +292,7 @@ class MarienbadJvsO {
 			boolean coupTrouve = false;
 			int ligne = allumettes.length -1;
 			
-			while (ligne < allumettes.length && !coupTrouve) {
+			while (ligne < allumettes.length && !coupTrouve && ligne >= 0) {
 				if (allumettes[ligne] != 0) {
 					int original = allumettes[ligne];
 					int enlever = original;
@@ -338,7 +338,7 @@ class MarienbadJvsO {
 			}
 
 			// Si aucun coup stratégique n'a été trouvé, passer à la difficulté inférieure
-			if (!coupTrouve) {
+			if (!coupTrouve || ligne == -1) {
 				difficulte1(allumettes);
 			}
 		}
