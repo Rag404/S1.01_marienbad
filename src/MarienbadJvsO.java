@@ -94,12 +94,12 @@ class MarienbadJvsO {
 	 * Demande à l'utilisateur l'ordre de passage du jeu
 	 * @return false si l'utilisateur joue en premier, sinon true
 	 */
-	boolean demandeOrdre() {
-		String str;
+	boolean demanderOrdre() {
+		int ordre;
 		do {
-			str = SimpleInput.getString("Qui joue en premier ? ('joueur' ou 'ordi') : ");
-		} while (str != "joueur" || str != "ordi");
-		return str == "ordi";
+			ordre = SimpleInput.getInt("   -> Qui joue en premier ? (0 = ordi, 1 = joueur) : ");
+		} while (ordre > 1 || ordre < 0);
+		return ordre == 0;
 	}
 	
 	/**
