@@ -99,7 +99,7 @@ class MarienbadJvsO {
 		do {
 			str = SimpleInput.getString("Qui joue en premier ? ('joueur' ou 'ordi') : ");
 		} while (str != "joueur" || str != "ordi");
-		return str == ordi;
+		return str == "ordi";
 	}
 	
 	/**
