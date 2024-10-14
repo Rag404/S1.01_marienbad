@@ -54,7 +54,7 @@ class MarienbadJvsO {
 		if(nbTours%2 == 1){
 			System.out.println("Felicitation a " + j + " qui remporte la partie!");
 		}else{
-			System.out.println(" O,nO Dommage, c'est l'ordonnateur qui gagne... ");
+			System.out.println(" O,nO Dommage, c'est l'ordinnateur qui gagne... ");
 		}
 		System.out.println("Partie gagnee en " + nbTours + "tours");
 	}
@@ -176,7 +176,14 @@ class MarienbadJvsO {
 	 * @param allumettes le tabeau du jeu
 	 */
 	void difficulte1(int[] allumettes) {
-		allumettes[(int) (Math.random() * )] = Math.max(0, allumettes[ligne] - nb);
+		int column;
+		do{
+			column = (int) (Math.random() * (allumettes.length - 1));
+		}while (allumettes[column] == 0);
+		
+		int nbAllumettes = (int) (Math.random() * allumettes[column] + 1);
+		
+		allumettes[column] = Math.max(0, allumettes[column] - nbAllumettes);
 	}
 	/**
 	 * joue l'action du robot de difficultée 2
