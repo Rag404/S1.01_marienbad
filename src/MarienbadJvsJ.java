@@ -215,7 +215,7 @@ class MarienbadJvsJ {
 	
 	void testCasActionJoueur(int[] allumettes, int ligne, int nbAllumettesARetirer, int[] expectedResult) {
 		// Affichage du cas testé
-		System.out.print("actionJoueur(" + tab2str + ", ligne=" + ligne + ", retirer=" + nbAllumettesARetirer + ") = ");
+		System.out.print("actionJoueur(" + tab2str(allumettes) + ", ligne=" + ligne + ", retirer=" + nbAllumettesARetirer + ") = ");
 		System.out.println(tab2str(expectedResult) + " : ");
 
 		// Simuler l'action du joueur
@@ -294,6 +294,6 @@ class MarienbadJvsJ {
 		if (tab.length > 0) {
 			str += tab[tab.length-1];
 		}
-		return "{" + str + "}"
+		return "{" + str + "}";
 	}
 }
