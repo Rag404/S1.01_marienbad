@@ -144,9 +144,9 @@ class MarienbadJvsO {
 	}
 	
 	/**
-	 * fais jouer le robot en fonction de la difficultée choisie
-	 * @param difficulte la difficultée choisie par l'utilisateur
-	 * @param allumettes le tabeau du jeu
+	 * Fais jouer le robot en fonction de la difficultée choisie
+	 * @param difficulte: la difficultée choisie par l'utilisateur
+	 * @param allumettes: le tabeau du jeu
 	 */
 	void actionOrdinateur(int difficulte, int[] allumettes) {
 		System.out.println(" * Tour de l'ordinateur *");
@@ -178,8 +178,8 @@ class MarienbadJvsO {
 	
 	/**
 	 * Affiche l'ecran de fin
-	 * @param j nom du joueur 1
-	 * @param nbTours nombre de tours de la partie
+	 * @param j: nom du joueur 1
+	 * @param nbTours: nombre de tours de la partie
 	 * @param ordre: l'ordre de jeu (false si joueur a commencé, true si c'est l'ordi)
 	 */
 	void finPartie(String j, int nbTours, boolean ordre) {
@@ -201,8 +201,8 @@ class MarienbadJvsO {
 	
 	
 	/**
-	 * joue l'action du robot de difficultée 1
-	 * @param allumettes le tabeau du jeu
+	 * Joue l'action du robot de difficultée 1
+	 * @param allumettes: le tabeau du jeu
 	 */
 	void difficulte1(int[] allumettes) {
 		int column;
@@ -216,8 +216,8 @@ class MarienbadJvsO {
 	}
 	
 	/**
-	 * joue l'action du robot de difficultée 2
-	 * @param allumettes le tabeau du jeu
+	 * Joue l'action du robot de difficultée 2
+	 * @param allumettes: le tabeau du jeu
 	 */
 	void difficulte2(int[] allumettes) {
 		int ligne = 0;
@@ -238,8 +238,8 @@ class MarienbadJvsO {
 	}
 	
 	/**
-	 * joue l'action du robot de difficultée 3
-	 * @param allumettes le tabeau du jeu
+	 * Joue l'action du robot de difficultée 3
+	 * @param allumettes: le tabeau du jeu
 	 */
 	void difficulte3(int[] allumettes) {
 		// Compte le nombre de lignes non vides
@@ -298,8 +298,8 @@ class MarienbadJvsO {
 	}
 	
 	/**
-	 * joue l'action du robot de difficultée 4
-	 * @param allumettes le tabeau du jeu
+	 * Joue l'action du robot de difficultée 4
+	 * @param allumettes: le tabeau du jeu
 	 */
 	void difficulte4(int[] allumettes) {
 		// Compte le nombre de lignes non vides
@@ -375,8 +375,8 @@ class MarienbadJvsO {
 	
 	
 	/**
-	 * vérifie si il ne reste plus qu'une seule ligne d'alumette disponnible
-	 * @param allumettes le tabeau du jeu
+	 * Vérifie si il ne reste plus qu'une seule ligne d'alumette disponnible
+	 * @param allumettes: le tabeau du jeu
 	 * @return vrai si il ne reste plus seule ligne
 	 */
 	boolean plusQuneLigne(int[] allumettes) {
@@ -464,7 +464,7 @@ class MarienbadJvsO {
 	}
 	
 	/**
-	 * recherche et renvoie la plus grande valeur dans un tableau
+	 * Recherche et renvoie la plus grande valeur dans un tableau
 	 * @param t: le tableau dans lequel chercher
 	 * @param n: la positions , 0 sera le premier plus grand, 1 le 2 eme...
 	 * @return la plus frand veleur du tableau

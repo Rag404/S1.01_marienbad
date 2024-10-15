@@ -36,9 +36,9 @@ class MarienbadJvsJ {
 	
 	/**
 	 * Affiche l'ecran de fin
-	 * @param j1 nom du joueur 1
-	 * @param j2 nom du joueur 2
-	 * @param nbTours nombre de tours de la partie
+	 * @param j1: nom du joueur 1
+	 * @param j2: nom du joueur 2
+	 * @param nbTours: nombre de tours de la partie
 	 */
 	void finPartie(String j1, String j2, int nbTours) {
 		System.out.println("\n\n-----------------------------------------------------\n\t* Partie terminee *\t\n-----------------------------------------------------\n\n");
@@ -156,10 +156,10 @@ class MarienbadJvsJ {
 	}
 	
 	/**
-	 * affiche le nom du joueur pour qui c'est le tour de jouer
-	 * @param nbTours numéro du tour de jeu
-	 * @param j1 nom du joueur1
-	 * @param j2 nom du joueur2
+	 * Affiche le nom du joueur pour qui c'est le tour de jouer
+	 * @param nbTours: numéro du tour de jeu
+	 * @param j1: nom du joueur1
+	 * @param j2: nom du joueur2
 	 */
 	void afficheJoueur(int nbTours, String j1, String j2) {
 		if (nbTours%2 == 0) {
@@ -285,7 +285,7 @@ class MarienbadJvsJ {
 	
 	
 	/**
-	 * Converti un tableau en sa représentation en String
+	 * Convertit un tableau d'entiers en sa représentation en String
 	 * @param tab: le tableau à convertir
 	 * @return le tableau convertit
 	 */
