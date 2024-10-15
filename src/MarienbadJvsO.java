@@ -242,6 +242,59 @@ class MarienbadJvsO {
 	 * @param allumettes le tabeau du jeu
 	 */
 	void difficulte3(int[] allumettes) {
+		// Compte le nombre de lignes non vides
+		int lignesPleines = 0;
+		for (int i = 0; i < allumettes.length; i++) {
+			if (allumettes[i] != 0) {
+				lignesPleines += 1;
+			}
+		}
+
+		// Cas ou il ne reste qu'une seule ligne avec des allumettes
+		// Prend toutes les allumettes
+		if (lignesPleines == 1) {
+			for (int i = 0; i < allumettes.length; i++) {
+				if (allumettes[i] != 0) {
+					allumettes[i] = 0;
+				}
+			}
+		}
+		
+		// Cas où il reste 1 ligne ou plus
+		// Tente d'appliquer la stratégie gagnante
+		else {
+			boolean coupTrouve = false;
+			int ligne = 0;
+			
+			// Parcours les lignes de haut en bas pour trouver un coup à jouer
+			while (!coupTrouve && ligne < allumettes.length){
+				if (allumettes[ligne] != 0) {
+					int original = allumettes[ligne];
+					int enlever = original;
+					
+					// Tente d'enlever 1 allumette, puis 2 allumettes, etc...
+					while (enlever > 0 && !coupTrouve) {
+						allumettes[ligne] = original - enlever;
+						
+						// Si la position est gagnante, on a trouvé un coup valide
+						coupTrouve = estPositionGagnante(allumettes);
+						enlever--;
+					}
+					
+					// Remettre la ligne à sa valeur d'origine si aucun coup n'est trouvé pour cette ligne
+					if (!coupTrouve) {
+						allumettes[ligne] = original;
+					}
+				}
+				ligne++;
+			}
+			
+			// Si aucun coup stratégique n'a été trouvé
+			if (!coupTrouve) {
+				difficulte1(allumettes);
+				System.out.println("Coup non trouve :(\nLe robot n'a pas trouvé de coup intelligent a faire");
+			}
+		}
 	}
 	
 	/**
@@ -287,7 +340,6 @@ class MarienbadJvsO {
 			// Parcours les lignes de bas en haut pour trouver un coup à jouer
 			while (!coupTrouve && ligne >= 0){
 				if (allumettes[ligne] != 0) {
-					System.out.println("ligne = " + ligne);
 					int original = allumettes[ligne];
 					int enlever = original;
 					
@@ -311,7 +363,7 @@ class MarienbadJvsO {
 			// Si aucun coup stratégique n'a été trouvé
 			if (!coupTrouve) {
 				difficulte1(allumettes);
-				System.out.println("Coup non trouve :(\n Le robot n'a pas trouvé de coup intelligent a faire");
+				System.out.println("Coup non trouve :(\nLe robot n'a pas trouvé de coup intelligent a faire");
 			}
 		}
 	}
