@@ -6,7 +6,7 @@
 
 class MarienbadJvsO {
 	void principal() {
-		appelDesTests();
+		appelTests();
 		afficheRegles();
 		
 		String j = SimpleInput.getString("   -> Choisissez un nom : ");
@@ -454,11 +454,23 @@ class MarienbadJvsO {
 		return "{" + str + "}";
 	}
 	
+	
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 *                     Fonctions de test                           *
 	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-	 
-	 /**
+	
+	
+	/**
+	 * appelle toutes les fonctions de test
+	 */
+	void appelTests() {
+		testEstPositionGagnante();
+		testActionOrdinateur();
+		testJeuEstFini();
+		testCreerTableau();
+	}
+	
+	/**
 	 * Test l'appel de la méthode creerTableau
 	 */
 	void testCreerTableau() {
@@ -471,7 +483,7 @@ class MarienbadJvsO {
 
 	/**
 	 * Test un appel de la méthode creerTableau
-	 * @param nbLignes nombre de lignes du jeu
+	 * @param nbLignes: nombre de lignes du jeu
 	 * @param result tableau attendu
 	 */
 	void testCasCreerTableau(int nbLignes, int[] result) {
@@ -501,8 +513,8 @@ class MarienbadJvsO {
 
 	/**
 	 * Test un appel de la méthode jeuEstFini
-	 * @param allumettes tableau de jeu
-	 * @param result valeur attendue
+	 * @param allumettes: tableau de jeu
+	 * @param result: valeur attendue
 	 */
 	void testCasJeuEstFini(int[] allumettes, boolean result) {
 		// Affichage
@@ -530,8 +542,9 @@ class MarienbadJvsO {
 	}
 
 	/**
-	 * Test un appel de la méthode difficulte1
-	 * @param allumettes tableau de jeu avant le coup de l'ordinateur
+	 * Test un appel de la méthode actionOrdinateur
+	 * @param allumettes: tableau de jeu avant le coup de l'ordinateur
+	 * @param difficulte: la difficulté de l'ordinateur
 	 */
 	void testCasActionOrdinateur(int[] allumettes, int difficulte) {
 		// Affichage
@@ -570,8 +583,8 @@ class MarienbadJvsO {
 
 	/**
 	 * Test un appel de la méthode estPositionGagnante
-	 * @param allumettes tableau de jeu
-	 * @param result valeur attendue
+	 * @param allumettes: tableau de jeu
+	 * @param result: valeur attendue
 	 */
 	void testCasEstPositionGagnante(int[] allumettes, boolean result) {
 		// Affichage
@@ -584,15 +597,5 @@ class MarienbadJvsO {
 		} else {
 			System.err.println("ERREUR");
 		}
-	}
-	
-	/**
-	 * appelle toutes les fonctions de test
-	 */
-	void appelDesTests (){
-		testEstPositionGagnante();
-		testActionOrdinateur();
-		testJeuEstFini();
-		testCreerTableau();
 	}
 }
