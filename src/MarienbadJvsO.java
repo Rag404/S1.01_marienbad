@@ -220,17 +220,21 @@ class MarienbadJvsO {
 	 * @param allumettes le tabeau du jeu
 	 */
 	void difficulte2(int[] allumettes) {
-		int column;
-		do{
-			column = (int) (Math.random() * (allumettes.length - 1));
-		}while (allumettes[column] == 0);
-		
-		if (plusQuneLigne(allumettes)){
-			
+		int ligne = 0;
+		for (int i = 0; i < allumettes.length; i++){
+			if (allumettes[i] != 0){
+				ligne ++;
+			}
 		}
-		int nbAllumettes = (int) (Math.random() * allumettes[column] + 1);
-		
-		allumettes[column] = Math.max(0, allumettes[column] - nbAllumettes);
+		if (ligne > 1){
+			difficulte1(allumettes);
+		}else{
+			int indice = 0;
+			while (allumettes[indice] == 0){
+				indice++;
+			}
+			allumettes[indice] = 0;
+		}
 	}
 	
 	/**
@@ -293,14 +297,12 @@ class MarienbadJvsO {
 						
 						// Si la position est gagnante, on a trouvé un coup valide
 						coupTrouve = estPositionGagnante(allumettes);
-						System.out.println("   enlever = " + enlever);
 						enlever--;
 					}
 					
 					// Remettre la ligne à sa valeur d'origine si aucun coup n'est trouvé pour cette ligne
 					if (!coupTrouve) {
 						allumettes[ligne] = original;
-						System.out.println("   coup non trouve pour la ligne " + ligne);
 					}
 				}
 				ligne--;
@@ -309,7 +311,7 @@ class MarienbadJvsO {
 			// Si aucun coup stratégique n'a été trouvé
 			if (!coupTrouve) {
 				difficulte1(allumettes);
-				System.out.println("Coup non trouve :(");
+				System.out.println("Coup non trouve :(\n Le robot n'a pas trouvé de coup intelligent a faire");
 			}
 		}
 	}
