@@ -39,36 +39,6 @@ class MarienbadJvsO {
 	}
 	
 	/**
-	 * Demande la difficulté du bot entre 1 et 4
-	 * @return difficulte la difficultée choisis par l'utilisateur
-	 */
-	int demandeDifficulte() {
-		int difficulte;
-		do {
-			difficulte = SimpleInput.getInt("   -> Choississez une difficulte (entre 1 et 4): ");
-		} while(difficulte > 5 || difficulte < 1);
-		return difficulte;
-	}
-	
-	/**
-	 * Affiche l'ecran de fin
-	 * @param j nom du joueur 1
-	 * @param nbTours nombre de tours de la partie
-	 * @param ordre: l'ordre de jeu (false si joueur a commencé, true si c'est l'ordi)
-	 */
-	void finPartie(String j, int nbTours, boolean ordre) {
-		System.out.println("\n\n-----------------------------------------------------\n\t* Partie terminee *\t\n-----------------------------------------------------\n\n");
-		if(nbTours%2 == 1){
-			System.out.println("Felicitation a " + j + " qui remporte la partie!");
-		}else{
-			System.out.println(" O,nO Dommage, c'est l'ordinnateur qui gagne... ");
-		}
-		
-		if (ordre == true) nbTours -= 1;
-		System.out.println("Partie gagnee en " + nbTours + "tours");
-	}
-	
-	/**
 	 * Affiche la bannière et les règles du jeu
 	 */
 	void afficheRegles() {
@@ -88,6 +58,18 @@ class MarienbadJvsO {
 			nbLignes = SimpleInput.getInt("   -> Choississez le nombre de rangees pour demarer une partie (entre 2 et 15): ");
 		} while (nbLignes < 2 || nbLignes > 15);
 		return nbLignes;
+	}
+	
+	/**
+	 * Demande la difficulté du bot entre 1 et 4
+	 * @return difficulte la difficultée choisis par l'utilisateur
+	 */
+	int demandeDifficulte() {
+		int difficulte;
+		do {
+			difficulte = SimpleInput.getInt("   -> Choississez une difficulte (entre 1 et 4): ");
+		} while(difficulte > 5 || difficulte < 1);
+		return difficulte;
 	}
 	
 	/**
@@ -162,21 +144,6 @@ class MarienbadJvsO {
 	}
 	
 	/**
-	 * Vérifie si le jeu est arrivé à sa fin (aucune allumettes restantes)
-	 * @param allumettes: tableau de jeu
-	 * @return true si il n'y a plus d'allumettes
-	 */
-	boolean jeuEstFini(int[] allumettes) {
-		boolean estVide = true;
-		int i = 0;
-		while (i < allumettes.length && estVide) {
-			estVide = (allumettes[i] == 0);
-			i++;
-		}
-		return estVide;
-	}
-	
-	/**
 	 * fais jouer le robot en fonction de la difficultée choisie
 	 * @param difficulte la difficultée choisie par l'utilisateur
 	 * @param allumettes le tabeau du jeu
@@ -193,20 +160,61 @@ class MarienbadJvsO {
 			difficulte4(allumettes);
 		}
 	}
+	
+	/**
+	 * Vérifie si le jeu est arrivé à sa fin (aucune allumettes restantes)
+	 * @param allumettes: tableau de jeu
+	 * @return true si il n'y a plus d'allumettes
+	 */
+	boolean jeuEstFini(int[] allumettes) {
+		boolean estVide = true;
+		int i = 0;
+		while (i < allumettes.length && estVide) {
+			estVide = (allumettes[i] == 0);
+			i++;
+		}
+		return estVide;
+	}
+	
+	/**
+	 * Affiche l'ecran de fin
+	 * @param j nom du joueur 1
+	 * @param nbTours nombre de tours de la partie
+	 * @param ordre: l'ordre de jeu (false si joueur a commencé, true si c'est l'ordi)
+	 */
+	void finPartie(String j, int nbTours, boolean ordre) {
+		System.out.println("\n\n-----------------------------------------------------\n\t* Partie terminee *\t\n-----------------------------------------------------\n\n");
+		if(nbTours%2 == 1){
+			System.out.println("Felicitation a " + j + " qui remporte la partie!");
+		}else{
+			System.out.println(" O,nO Dommage, c'est l'ordinnateur qui gagne... ");
+		}
+		
+		if (ordre == true) nbTours -= 1;
+		System.out.println("Partie gagnee en " + nbTours + "tours");
+	}
+	
+	
+	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	 *                   Fonctions des difficultés                     *
+	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+	
+	
 	/**
 	 * joue l'action du robot de difficultée 1
 	 * @param allumettes le tabeau du jeu
 	 */
 	void difficulte1(int[] allumettes) {
 		int column;
-		do{
-			column = (int) (Math.random() * (allumettes.length - 1));
-		}while (allumettes[column] == 0);
+		do {
+			column = (int) (Math.random() * allumettes.length);
+		} while (allumettes[column] == 0);
 		
 		int nbAllumettes = (int) (Math.random() * allumettes[column] + 1);
 		
 		allumettes[column] = Math.max(0, allumettes[column] - nbAllumettes);
 	}
+	
 	/**
 	 * joue l'action du robot de difficultée 2
 	 * @param allumettes le tabeau du jeu
@@ -224,29 +232,29 @@ class MarienbadJvsO {
 		
 		allumettes[column] = Math.max(0, allumettes[column] - nbAllumettes);
 	}
+	
 	/**
 	 * joue l'action du robot de difficultée 3
 	 * @param allumettes le tabeau du jeu
 	 */
 	void difficulte3(int[] allumettes) {
-		
 	}
+	
 	/**
 	 * joue l'action du robot de difficultée 4
 	 * @param allumettes le tabeau du jeu
 	 */
 	void difficulte4(int[] allumettes) {
-		String[] allumettesBinaire = new String[allumettes.length];
-		int lignesPleines = 0;
-
 		// Compte le nombre de lignes non vides
+		int lignesPleines = 0;
 		for (int i = 0; i < allumettes.length; i++) {
 			if (allumettes[i] != 0) {
-				lignesPleines++;
+				lignesPleines += 1;
 			}
 		}
 
 		// Cas ou il ne reste qu'une seule ligne avec des allumettes
+		// Prend toutes les allumettes
 		if (lignesPleines == 1) {
 			for (int i = 0; i < allumettes.length; i++) {
 				if (allumettes[i] != 0) {
@@ -256,77 +264,61 @@ class MarienbadJvsO {
 		}
 
 		// Cas où il reste plus de 6 lignes avec des allumettes
-		if (lignesPleines > 6) {
+		// Vide complètement une ligne au hasard
+		else if (lignesPleines > 6) {
 			int column;
 			do {
 				column = (int) (Math.random() * allumettes.length);
 			} while (allumettes[column] == 0);
 
-			allumettes[column] = 0; // Vider complètement une ligne choisie au hasard
+			allumettes[column] = 0;
 		}
-		if (lignesPleines <= 6 && lignesPleines > 1){
-			
+		
+		// Cas où il reste entre 2 et 6 lignes
+		// Tente d'appliquer la stratégie gagnante
+		else {
 			boolean coupTrouve = false;
-			int ligne = allumettes.length -1;
+			int ligne = allumettes.length - 1;
 			
-			while (ligne < allumettes.length && !coupTrouve && ligne >= 0){
+			// Parcours les lignes de bas en haut pour trouver un coup à jouer
+			while (!coupTrouve && ligne >= 0){
 				if (allumettes[ligne] != 0) {
+					System.out.println("ligne = " + ligne);
 					int original = allumettes[ligne];
 					int enlever = original;
+					
+					// Tente d'enlever toutes les allumettes, puis 1 en moins, etc...
 					while (enlever > 0 && !coupTrouve) {
-						
 						allumettes[ligne] = original - enlever;
-						//calcule additionBinaire
-						for (int i = 0; i < allumettes.length; i++) {
-							allumettesBinaire[i] = Integer.toBinaryString(allumettes[i]);
-						}
 						
-						int maxBits = 0;
-						for (int i = 0; i < allumettesBinaire.length; i++){
-							if (maxBits < allumettesBinaire[i].length()){
-								maxBits = allumettesBinaire[i].length();
-							}
-						}
-
-						int[] tempAdditionBinaire = new int[maxBits];
-						for (int i = 0; i < maxBits; i++) {
-							for (int nbBin = 0; nbBin < allumettesBinaire.length; nbBin++) {
-								if (allumettesBinaire[nbBin].length() > i && allumettesBinaire[nbBin].charAt(allumettesBinaire[nbBin].length() - 1 - i) == '1') {
-									tempAdditionBinaire[i]++;
-								}
-							}
-						}
-
-						// Vérifier si tous les bits sont pairs
-						boolean tousPairs = true;
-						for (int bit = 0; bit < tempAdditionBinaire.length; bit++) {
-							if (tempAdditionBinaire[bit] % 2 != 0) {
-								tousPairs = false;
-							}
-						}
-
-						// Si tous les bits sont pairs, on a trouvé un coup valide
-						if (tousPairs) {
-							coupTrouve = true;
-						}
+						// Si la position est gagnante, on a trouvé un coup valide
+						coupTrouve = estPositionGagnante(allumettes);
+						System.out.println("   enlever = " + enlever);
 						enlever--;
 					}
-
+					
 					// Remettre la ligne à sa valeur d'origine si aucun coup n'est trouvé pour cette ligne
 					if (!coupTrouve) {
 						allumettes[ligne] = original;
+						System.out.println("   coup non trouve pour la ligne " + ligne);
 					}
 				}
 				ligne--;
 			}
-
+			
 			// Si aucun coup stratégique n'a été trouvé
-			if (!coupTrouve || ligne == -1) {
+			if (!coupTrouve) {
 				difficulte1(allumettes);
 				System.out.println("Coup non trouve :(");
 			}
 		}
 	}
+	
+	
+	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	 *                     Fonctions stratégiques                      *
+	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+	
 	
 	/**
 	 * vérifie si il ne reste plus qu'une seule ligne d'alumette disponnible
@@ -337,12 +329,56 @@ class MarienbadJvsO {
 		return true;
 	}
 	
+	/**
+	 * Détermine si la positition est gagnante pour la stratégie de l'ordinateur
+	 * @param allumettes: tableau de jeu
+	 * @return true si la position est gagnante, sinon false
+	 */
+	boolean estPositionGagnante(int[] allumettes) {
+		// Convertit les lignes d'allumettes en binaire
+		String[] allumettesBin = new String[allumettes.length];
+		for (int i = 0; i < allumettes.length; i++) {
+			allumettesBin[i] = Integer.toBinaryString(allumettes[i]);
+		}
+		
+		// Trouve la plus longue chaîne de bits
+		int maxBits = 0;
+		for (int i = 0; i < allumettesBin.length; i++){
+			if (maxBits < allumettesBin[i].length()){
+				maxBits = allumettesBin[i].length();
+			}
+		}
+		
+		// Additionne les colonnes de bits
+		int[] additionBin = new int[maxBits];
+		for (int i = 0; i < maxBits; i++) {
+			for (int nbBin = 0; nbBin < allumettesBin.length; nbBin++) {
+				if (allumettesBin[nbBin].length() > i && allumettesBin[nbBin].charAt(allumettesBin[nbBin].length() - 1 - i) == '1') {
+					additionBin[i]++;
+				}
+			}
+		}
+		
+		// Vérifier si toutes les sommes des bits sont paires
+		boolean tousPairs = true;
+		for (int bit = 0; bit < additionBin.length; bit++) {
+			if (additionBin[bit] % 2 != 0) {
+				tousPairs = false;
+			}
+		}
+		
+		// Si elles sont toutes paires alors la position est gagnante
+		return tousPairs;
+	}
+	 
+	
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 *                     Fonctions utilitaires                       *
 	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 	
+	
 	/**
-	 * Converti un tableau en sa représentation en String
+	 * Convertit un tableau de String en sa représentation en String
 	 * @param tab: le tableau à convertir
 	 * @return le tableau convertit
 	 */
@@ -357,7 +393,12 @@ class MarienbadJvsO {
 		return "{" + str + "}";
 	}
 	
-	String tabInt2str(int[] tab) {
+	/**
+	 * Convertit un tableau d'entiers en sa représentation en String
+	 * @param tab: le tableau à convertir
+	 * @return le tableau convertit
+	 */
+	String tab2str(int[] tab) {
 		String str = "";
 		for (int i=0; i < tab.length-1; i++) {
 			str += tab[i] + ", ";
