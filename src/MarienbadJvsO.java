@@ -272,7 +272,7 @@ class MarienbadJvsO {
 					int original = allumettes[ligne];
 					int enlever = 0;
 					
-					// Tente d'enlever toutes les allumettes, puis 1 en moins, etc...
+					// Tente d'enlever 1 allumette, puis 2 allumettes, etc...
 					while (enlever < original && !coupTrouve) {
 						allumettes[ligne] = original - enlever;
 						
