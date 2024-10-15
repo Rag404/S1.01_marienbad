@@ -270,15 +270,15 @@ class MarienbadJvsO {
 			while (!coupTrouve && ligne < allumettes.length){
 				if (allumettes[ligne] != 0) {
 					int original = allumettes[ligne];
-					int enlever = original;
+					int enlever = 0;
 					
 					// Tente d'enlever 1 allumette, puis 2 allumettes, etc...
-					while (enlever > 0 && !coupTrouve) {
+					while (enlever < original && !coupTrouve) {
 						allumettes[ligne] = original - enlever;
 						
 						// Si la position est gagnante, on a trouvé un coup valide
 						coupTrouve = estPositionGagnante(allumettes);
-						enlever--;
+						enlever++;
 					}
 					
 					// Remettre la ligne à sa valeur d'origine si aucun coup n'est trouvé pour cette ligne
