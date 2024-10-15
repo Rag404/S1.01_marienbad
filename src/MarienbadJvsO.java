@@ -373,16 +373,6 @@ class MarienbadJvsO {
 	 *                     Fonctions stratégiques                      *
 	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 	
-	
-	/**
-	 * vérifie si il ne reste plus qu'une seule ligne d'alumette disponnible
-	 * @param allumettes le tabeau du jeu
-	 * @return vrai si il ne reste plus seule ligne
-	 */
-	boolean plusQuneLigne(int[] allumettes) {
-		return true;
-	}
-	
 	/**
 	 * Détermine si la positition est gagnante pour la stratégie de l'ordinateur
 	 * @param allumettes: tableau de jeu
@@ -463,26 +453,7 @@ class MarienbadJvsO {
 		return "{" + str + "}";
 	}
 	
-	/**
-	 * recherche et renvoie la plus grande valeur dans un tableau
-	 * @param t: le tableau dans lequel chercher
-	 * @param n: la positions , 0 sera le premier plus grand, 1 le 2 eme...
-	 * @return la plus frand veleur du tableau
-	 */
-	int plusGrand(int[] t, int n){
-		int temp;
-		int[] tTrie = new int[t.length];
-		
-		// Trier le tableau de manière décroissante
-		for (int i = 0; i < tTrie.length - 1; i++) {
-			for (int j = i + 1; j < tTrie.length; j++) {
-				if (tTrie[i] < tTrie[j]) {
-					temp = tTrie[i];
-					tTrie[i] = tTrie[j];
-					tTrie[j] = temp;
-				}
-			}
-		}
-		return tTrie[n];
-	}
+	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	 *                     Fonctions de test                           *
+	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 }
