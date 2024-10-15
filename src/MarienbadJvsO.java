@@ -6,6 +6,7 @@
 
 class MarienbadJvsO {
 	void principal() {
+		appelDesTests();
 		afficheRegles();
 		
 		String j = SimpleInput.getString("   -> Choisissez un nom : ");
@@ -292,7 +293,7 @@ class MarienbadJvsO {
 			// Si aucun coup stratégique n'a été trouvé
 			if (!coupTrouve) {
 				difficulte1(allumettes);
-				System.out.println("Coup non trouve :(\nLe robot n'a pas trouvé de coup intelligent a faire");
+				System.out.println("Coup non trouve :(\nLe robot n'a pas trouve de coup intelligent a faire et joue aleatoirement");
 			}
 		}
 	}
@@ -363,7 +364,7 @@ class MarienbadJvsO {
 			// Si aucun coup stratégique n'a été trouvé
 			if (!coupTrouve) {
 				difficulte1(allumettes);
-				System.out.println("Coup non trouve :(\nLe robot n'a pas trouvé de coup intelligent a faire");
+				System.out.println("Coup non trouve :(\nLe robot n'a pas trouve de coup intelligent a faire et joue aleatoirement");
 			}
 		}
 	}
@@ -456,4 +457,142 @@ class MarienbadJvsO {
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 *                     Fonctions de test                           *
 	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+	 
+	 /**
+	 * Test l'appel de la méthode creerTableau
+	 */
+	void testCreerTableau() {
+		System.out.println();
+		System.out.println("*** testCreerTableau()");
+		testCasCreerTableau(2, new int[]{1, 3});
+		testCasCreerTableau(5, new int[]{1, 3, 5, 7, 9});
+		testCasCreerTableau(7, new int[]{1, 3, 5, 7, 9, 11, 13});
+	}
+
+	/**
+	 * Test un appel de la méthode creerTableau
+	 * @param nbLignes nombre de lignes du jeu
+	 * @param result tableau attendu
+	 */
+	void testCasCreerTableau(int nbLignes, int[] result) {
+		// Affichage
+		System.out.print("creerTableau(" + nbLignes + ") = " + tab2str(result) + "\t : ");
+		// Appel
+		int[] resExec = creerTableau(nbLignes);
+		// Vérification
+		if (tab2str(resExec).equals(tab2str(result))) {
+			System.out.println("OK");
+		} else {
+			System.err.println("ERREUR");
+		}
+	}
+	
+	/**
+	 * Test l'appel de la méthode jeuEstFini
+	 */
+	void testJeuEstFini() {
+		System.out.println();
+		System.out.println("*** testJeuEstFini()");
+		testCasJeuEstFini(new int[]{0, 0, 0}, true);
+		testCasJeuEstFini(new int[]{1, 2, 0}, false);
+		testCasJeuEstFini(new int[]{0, 1, 0, 3}, false);
+		testCasJeuEstFini(new int[]{0, 0, 0, 0, 0, 0, 0}, true);
+	}
+
+	/**
+	 * Test un appel de la méthode jeuEstFini
+	 * @param allumettes tableau de jeu
+	 * @param result valeur attendue
+	 */
+	void testCasJeuEstFini(int[] allumettes, boolean result) {
+		// Affichage
+		System.out.print("jeuEstFini(" + tab2str(allumettes) + ") = " + result + "\t : ");
+		// Appel
+		boolean resExec = jeuEstFini(allumettes);
+		// Vérification
+		if (resExec == result) {
+			System.out.println("OK");
+		} else {
+			System.err.println("ERREUR");
+		}
+	}
+	
+	/**
+	 * Test l'appel de la méthode actionOrdinateur
+	 */
+	void testActionOrdinateur() {
+		System.out.println();
+		System.out.println("*** testActionOrdinateur()");
+		testCasActionOrdinateur(new int[]{1, 0, 5, 2}, 1);
+		testCasActionOrdinateur(new int[]{1, 0, 5, 2}, 2);
+		testCasActionOrdinateur(new int[]{1, 0, 5, 2}, 3);
+		testCasActionOrdinateur(new int[]{1, 0, 5, 2}, 4);
+	}
+
+	/**
+	 * Test un appel de la méthode difficulte1
+	 * @param allumettes tableau de jeu avant le coup de l'ordinateur
+	 */
+	void testCasActionOrdinateur(int[] allumettes, int difficulte) {
+		// Affichage
+		int sommeAllumettes = 0;
+		for (int i = 0; i < allumettes.length; i++){
+			sommeAllumettes += allumettes[i];
+		}
+		System.out.print("Il y a " + sommeAllumettes + " allumettes avant appel de la fonction, et ");
+		//appel
+		actionOrdinateur(difficulte, allumettes);
+		int sommeAllumettesApres = 0;
+		for (int i = 0; i < allumettes.length; i++){
+			sommeAllumettesApres += allumettes[i];
+		}
+		// Affichage après le coup
+		System.out.print(sommeAllumettesApres + " allumettes apres = ");
+		// Vérification
+		if (sommeAllumettes > sommeAllumettesApres) {
+			System.out.println("OK");
+		} else {
+			System.err.println("ERREUR");
+		}
+	}
+	
+	/**
+	 * Test l'appel de la méthode estPositionGagnante
+	 */
+	void testEstPositionGagnante() {
+		System.out.println();
+		System.out.println("*** testEstPositionGagnante()");
+		testCasEstPositionGagnante(new int[]{1, 2, 3}, true);
+		testCasEstPositionGagnante(new int[]{1, 1, 1}, false);
+		testCasEstPositionGagnante(new int[]{1}, false);
+		testCasEstPositionGagnante(new int[]{1, 3, 5, 7}, true);
+	}
+
+	/**
+	 * Test un appel de la méthode estPositionGagnante
+	 * @param allumettes tableau de jeu
+	 * @param result valeur attendue
+	 */
+	void testCasEstPositionGagnante(int[] allumettes, boolean result) {
+		// Affichage
+		System.out.print("estPositionGagnante(" + tab2str(allumettes) + ") = " + result + "\t : ");
+		// Appel
+		boolean resExec = estPositionGagnante(allumettes);
+		// Vérification
+		if (resExec == result) {
+			System.out.println("OK");
+		} else {
+			System.err.println("ERREUR");
+		}
+	}
+	
+	/**
+	 * appelle toutes les fonctions de test
+	 */
+	void appelDesTests (){
+		testEstPositionGagnante();
+		testActionOrdinateur();
+		testJeuEstFini();
+		testCreerTableau();
+	}
 }
