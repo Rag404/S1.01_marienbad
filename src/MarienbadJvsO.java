@@ -265,49 +265,33 @@ class MarienbadJvsO {
 			allumettes[column] = 0; // Vider complètement une ligne choisie au hasard
 		}
 		if (lignesPleines <= 6 && lignesPleines > 1){
-			// Convertis les allumettes en binaire
-			for (int i = 0; i < allumettes.length; i++) {
-				allumettesBinaire[i] = Integer.toBinaryString(allumettes[i]);
-			}
-
-			// Calcule la longueur maximale des chaînes binaires
-			int maxBits = 0;
-			for (int i = 0; i < allumettesBinaire.length; i++) {
-				if (allumettesBinaire[i].length() > maxBits) {
-					maxBits = allumettesBinaire[i].length();
-				}
-			}
-
-			// Additionne les bits
-			int[] additionBinaire = new int[maxBits];
-			for (int i = 0; i < maxBits; i++) {
-				for (int j = 0; j < allumettesBinaire.length; j++) {
-					if (allumettesBinaire[j].length() > i && allumettesBinaire[j].charAt(allumettesBinaire[j].length() - 1 - i) == '1') {
-						additionBinaire[i]++;
-					}
-				}
-			}
-
-			// Essayer de rendre tous les éléments de additionBinaire pairs en modifiant une ligne
+			
 			boolean coupTrouve = false;
 			int ligne = allumettes.length -1;
 			
-			while (ligne < allumettes.length && !coupTrouve && ligne >= 0) {
+			while (ligne < allumettes.length && !coupTrouve && ligne >= 0){
 				if (allumettes[ligne] != 0) {
 					int original = allumettes[ligne];
 					int enlever = original;
 					while (enlever > 0 && !coupTrouve) {
-
-						// Recalculer additionBinaire après le changement
-						String[] tempAllumettesBinaire = new String[allumettes.length];
+						
+						allumettes[ligne] = original - enlever;
+						//calcule additionBinaire
 						for (int i = 0; i < allumettes.length; i++) {
-							tempAllumettesBinaire[i] = Integer.toBinaryString(allumettes[i]);
+							allumettesBinaire[i] = Integer.toBinaryString(allumettes[i]);
+						}
+						
+						int maxBits = 0;
+						for (int i = 0; i < allumettesBinaire.length; i++){
+							if (maxBits < allumettesBinaire[i].length()){
+								maxBits = allumettesBinaire[i].length();
+							}
 						}
 
 						int[] tempAdditionBinaire = new int[maxBits];
 						for (int i = 0; i < maxBits; i++) {
-							for (int nbBin = 0; nbBin < tempAdditionBinaire.length; nbBin++) {
-								if (tempAllumettesBinaire[nbBin].length() > i && tempAllumettesBinaire[nbBin].charAt(tempAllumettesBinaire[nbBin].length() - 1 - i) == '1') {
+							for (int nbBin = 0; nbBin < allumettesBinaire.length; nbBin++) {
+								if (allumettesBinaire[nbBin].length() > i && allumettesBinaire[nbBin].charAt(allumettesBinaire[nbBin].length() - 1 - i) == '1') {
 									tempAdditionBinaire[i]++;
 								}
 							}
@@ -325,7 +309,6 @@ class MarienbadJvsO {
 						if (tousPairs) {
 							coupTrouve = true;
 						}
-						allumettes[ligne] = original - enlever;
 						enlever--;
 					}
 
@@ -337,9 +320,10 @@ class MarienbadJvsO {
 				ligne--;
 			}
 
-			// Si aucun coup stratégique n'a été trouvé, passer à la difficulté inférieure
+			// Si aucun coup stratégique n'a été trouvé
 			if (!coupTrouve || ligne == -1) {
 				difficulte1(allumettes);
+				System.out.println("Coup non trouve :(");
 			}
 		}
 	}
