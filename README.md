@@ -26,7 +26,8 @@ Dans la version contre un ordinateur, il est possible de choisir parmi quatre di
 
 - **Niveau 3** \
   L'ordinateur applique la [stratégie gagnante](https://fr.wikipedia.org/wiki/Jeu_de_Marienbad#Strat%C3%A9gie_gagnante) en enlevant un nombre minimal d'allumettes.
+  si aucun coup intelligent n'est possible, alors il applique la difficultée 1
 
 - **Niveau 4** \
   L'ordinateur applique aussi la stratégie gagnante mais en enlevant un nombre maximal d'allumettes. \
-  Aussi, tant qu'il reste plus de 6 lignes non vides, il sélectionne une rangée au hasard à vider entièrement.
+  si aucun coup intelligent n'est possible, alors il applique la diffilcultée 1

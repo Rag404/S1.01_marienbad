@@ -212,7 +212,7 @@ class MarienbadJvsO {
 		} while (allumettes[column] == 0);
 		
 		int nbAllumettes = (int) (Math.random() * allumettes[column] + 1);
-		
+		System.out.println("Le Robot a enleve " + nbAllumettes + " allumettes sur la ligne : " + (column + 1));
 		allumettes[column] = Math.max(0, allumettes[column] - nbAllumettes);
 	}
 	
@@ -265,35 +265,38 @@ class MarienbadJvsO {
 		// Tente d'appliquer la stratégie gagnante
 		else {
 			boolean coupTrouve = false;
-			int ligne = 0;
-			
+			int ligne;
+			int i = allumettes.length - 1;
 			// Parcours les lignes de bas en haut pour trouver un coup à jouer
-			while (!coupTrouve && ligne < allumettes.length){
+			while (!coupTrouve && i >= 0){
+				ligne = plusGrand(allumettes, i);//selectionne la i eme plus petite ligne
 				if (allumettes[ligne] != 0) {
 					int original = allumettes[ligne];
 					int enlever = 0;
 					
 					// Tente d'enlever 1 allumette, puis 2 allumettes, etc...
 					while (enlever < original && !coupTrouve) {
+						enlever++;
 						allumettes[ligne] = original - enlever;
 						
 						// Si la position est gagnante, on a trouvé un coup valide
 						coupTrouve = estPositionGagnante(allumettes);
-						enlever++;
 					}
 					
 					// Remettre la ligne à sa valeur d'origine si aucun coup n'est trouvé pour cette ligne
 					if (!coupTrouve) {
 						allumettes[ligne] = original;
+					}else{
+						System.out.println("Le Robot a enleve " + (enlever + 1) + " allumettes sur la ligne : " + (ligne + 1));
 					}
 				}
-				ligne++;
+				i--;
 			}
 			
 			// Si aucun coup stratégique n'a été trouvé
 			if (!coupTrouve) {
-				difficulte1(allumettes);
 				System.out.println("Coup non trouve :(\nLe robot n'a pas trouve de coup intelligent a faire et joue aleatoirement");
+				difficulte1(allumettes);
 			}
 		}
 	}
@@ -320,26 +323,14 @@ class MarienbadJvsO {
 				}
 			}
 		}
-
-		// Cas où il reste plus de 6 lignes avec des allumettes
-		// Vide complètement une ligne au hasard
-		else if (lignesPleines > 6) {
-			int column;
-			do {
-				column = (int) (Math.random() * allumettes.length);
-			} while (allumettes[column] == 0);
-
-			allumettes[column] = 0;
-		}
-		
-		// Cas où il reste entre 2 et 6 lignes
-		// Tente d'appliquer la stratégie gagnante
+		//si il reste plus de 1 ligne, il joue intelligemment
 		else {
 			boolean coupTrouve = false;
-			int ligne = allumettes.length - 1;
-			
+			int ligne;
+			int i = 0;
 			// Parcours les lignes de bas en haut pour trouver un coup à jouer
-			while (!coupTrouve && ligne >= 0){
+			while (!coupTrouve && i < allumettes.length){
+				ligne = plusGrand(allumettes, i); //selectionne la i eme plus grande ligne
 				if (allumettes[ligne] != 0) {
 					int original = allumettes[ligne];
 					int enlever = original;
@@ -356,9 +347,12 @@ class MarienbadJvsO {
 					// Remettre la ligne à sa valeur d'origine si aucun coup n'est trouvé pour cette ligne
 					if (!coupTrouve) {
 						allumettes[ligne] = original;
+					}else{
+						System.out.println("Le Robot a enleve " + (enlever + 1) + " allumettes sur la ligne : " + (ligne + 1));
 					}
 				}
-				ligne--;
+				
+				i++;
 			}
 			
 			// Si aucun coup stratégique n'a été trouvé
@@ -454,6 +448,39 @@ class MarienbadJvsO {
 		return "{" + str + "}";
 	}
 	
+	/**
+	 * 
+	 * 
+	 * 
+	 */
+	int plusGrand (int[] t, int rang){
+		int maxTemp = 0;
+		int[] tCroissant = new int[t.length];
+		int[] tIndices = new int[t.length];
+		
+		for (int i = 0; i < tCroissant.length; i++){
+			maxTemp = 0;
+			for (int k = 0; k < t.length; k++){
+				if (t[k] > maxTemp && !estDans(t[k], tCroissant)){
+					maxTemp = t[k];
+					tIndices[i] = k;
+				}
+			}
+			tCroissant[i] = maxTemp;
+		}
+		return tIndices[rang];
+	}
+	
+	boolean estDans (int val, int[] t){
+		boolean estDans = false;
+		for (int i = 0; i < t.length; i++){
+			if (t[i] == val){
+				estDans = true;
+			}
+		}
+		return estDans;
+	}
+	
 	
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 *                     Fonctions de test                           *
@@ -469,6 +496,8 @@ class MarienbadJvsO {
 		testJeuEstFini();
 		testCreerTableau();
 	}
+	
+	
 	
 	/**
 	 * Test l'appel de la méthode creerTableau
