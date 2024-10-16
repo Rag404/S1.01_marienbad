@@ -25,9 +25,12 @@ Dans la version contre un ordinateur, il est possible de choisir parmi quatre di
   L'ordinateur joue aléatoirement sauf si il peut gagner en 1 coup (en vidant une ligne).
 
 - **Niveau 3** \
-  L'ordinateur applique la [stratégie gagnante](https://fr.wikipedia.org/wiki/Jeu_de_Marienbad#Strat%C3%A9gie_gagnante) en enlevant un nombre minimal d'allumettes. \
+  L'ordinateur applique la [stratégie gagnante](https://fr.wikipedia.org/wiki/Jeu_de_Marienbad#Strat%C3%A9gie_gagnante) en enlevant un nombre minimal* d'allumettes. \
   Si aucun coup intelligent n'est possible, alors il applique le niveau 1.
 
 - **Niveau 4** \
-  L'ordinateur applique aussi la stratégie gagnante mais en enlevant un nombre maximal d'allumettes. \
+  L'ordinateur applique aussi la stratégie gagnante mais en enlevant un nombre maximal* d'allumettes. \
   Si aucun coup intelligent n'est possible, alors il applique le niveau 1.
+
+*Le nombre d'allumettes enlevé n'est pas totalement maximal, l'ordinateur sélectionne simplement la ligne la plus remplie (puis la 2ème plus remplie, etc) et
+tente d'y enlever le plus d'allumettes possible tout en appliquant la stratégie gagnante. (même chose à l'opposé pour la difficulté 3)
