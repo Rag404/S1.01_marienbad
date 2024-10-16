@@ -28,6 +28,7 @@ class MarienbadJvsO {
 				System.out.println("\n-> Au tour de " + j + " de jouer");
 				actionJoueur(allumettes);
 			} else {
+				System.out.println("\n-> Au tour de l'ordonateur de jouer");
 				actionOrdinateur(difficulte, allumettes);
 			}
 			
@@ -150,7 +151,6 @@ class MarienbadJvsO {
 	 * @param allumettes: le tabeau du jeu
 	 */
 	void actionOrdinateur(int difficulte, int[] allumettes) {
-		System.out.println(" * Tour de l'ordinateur *");
 		if (difficulte == 1){
 			difficulte1(allumettes);
 		}else if(difficulte == 2) {
@@ -514,6 +514,8 @@ class MarienbadJvsO {
 		testCreerTableau();
 		testPlusGrand();
 		testEstDans();
+		testViderTab();
+		testNbLignesPleines();
 	}
 	
 	/**
@@ -711,6 +713,75 @@ class MarienbadJvsO {
 		boolean resExec = estPositionGagnante(allumettes);
 		// Vérification
 		if (resExec == result) {
+			System.out.println("OK");
+		} else {
+			System.err.println("ERREUR");
+		}
+	}
+	
+	/**
+	 * Teste la fonction viderTab
+	 */
+	void testViderTab() {
+		System.out.println();
+		System.out.println("*** testViderTab()");
+		testCasViderTab(new int[]{12, 5, 3}, new int[]{0, 0, 0});
+		testCasViderTab(new int[]{}, new int[]{});
+		testCasViderTab(new int[]{9}, new int[]{0});
+	}
+	
+	/**
+	 * Teste un appel de la fonction viderTab
+	 * @param tab: le tableau à vider
+	 * @param expectedResult: la valeur attendue
+	 */
+	void testCasViderTab(int[] tab, int[] expectedResult) {
+		// Affichage du cas testé
+		System.out.print("viderTab(" + tab2str(tab) + ") = " + tab2str(expectedResult) + " :\t");
+
+		// Vérification du résultat
+		viderTab(tab);
+		boolean testOk = true;
+		if (tab.length == expectedResult.length) {
+			for (int i = 0; i < tab.length; i++) {
+				if (tab[i] != expectedResult[i]) {
+					testOk = false;
+					break;
+				}
+			}
+		} else {
+			testOk = false;
+		}
+
+		if (testOk) {
+			System.out.println("OK");
+		} else {
+			System.err.println("ERREUR");
+		}
+	}
+	
+	/**
+	 * Teste la fonction nbLignesPleines
+	 */
+	void testNbLignesPleines() {
+		System.out.println();
+		System.out.println("*** testNbLignesPleines");
+		testCasNbLignesPleines(new int[]{5, 0, 12, 0}, 2);
+		testCasNbLignesPleines(new int[]{0, 0}, 0);
+		testCasNbLignesPleines(new int[]{}, 0);
+	}
+	
+	/**
+	 * Teste un appel de la fonction nbLignesPleines
+	 * @param tab: le tableau de jeu
+	 * @param expectedResult: la valeur attendue
+	 */
+	void testCasNbLignesPleines(int[] tab, int expectedResult) {
+		// Affichage du cas testé
+		System.out.print("nbLignesPleines(" + tab2str(tab) + ") = " + expectedResult + " :\t");
+		
+		// Vérification du résultat
+		if (nbLignesPleines(tab) == expectedResult) {
 			System.out.println("OK");
 		} else {
 			System.err.println("ERREUR");
