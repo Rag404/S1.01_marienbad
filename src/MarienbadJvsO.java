@@ -459,9 +459,10 @@ class MarienbadJvsO {
 	}
 	
 	/**
-	 * 
-	 * 
-	 * 
+	 * trouve l'indice du i eme plus grand élément d'une liste
+	 * @param t: tableau dans lequel piocher les entiers
+	 * @param rang: rang de l'élément dont prendre l'indice (0 = l'élément le plus grand, 1 = le 2eme élément le plus grand)
+	 * @return l'indice du i eme plus grand élément choisi
 	 */
 	int plusGrand (int[] t, int rang){
 		int maxTemp = 0;
@@ -481,6 +482,12 @@ class MarienbadJvsO {
 		return tIndices[rang];
 	}
 	
+	/**
+	 * détermine si un nombre est déja présent dans une liste
+	 * @param t: tableau d'entiers
+	 * @param val: valeur a tester
+	 * @return vrai si le nombre est présent dans la liste
+	 */
 	boolean estDans (int val, int[] t){
 		boolean estDans = false;
 		for (int i = 0; i < t.length; i++){
@@ -505,19 +512,79 @@ class MarienbadJvsO {
 		testActionOrdinateur();
 		testJeuEstFini();
 		testCreerTableau();
+		testPlusGrand();
+		testEstDans();
 	}
 	
+	/**
+	 * Test l'appel de la méthode estDans
+	 */
+	void testEstDans() {
+		System.out.println();
+		System.out.println("*** testEstDans()");
+		testCasEstDans(new int[]{0},0,true);
+		testCasEstDans(new int[]{7, 3, 50, 7, 9}, 1, false);
+		testCasEstDans(new int[]{89, 3, 71, 70, 9, 1, 13}, 1, true);
+	}
+
+	/**
+	 * Test un appel de la méthode estDans
+	 * @param t : tableau en entrée
+	 * @param val : valeur a tester
+	 * @param result valeur attendue
+	 */
+	void testCasEstDans(int[] t, int val, boolean result) {
+		// Affichage
+		System.out.print("estDans(" + tab2str(t) + ", " + val + ") = " + result + "\t : ");
+		// Appel
+		boolean resExec = estDans(val, t);
+		// Vérification
+		if (resExec == result) {
+			System.out.println("OK");
+		} else {
+			System.err.println("ERREUR");
+		}
+	}
+	
+	/**
+	 * Test l'appel de la méthode plusGrand
+	 */
+	void testPlusGrand() {
+		System.out.println();
+		System.out.println("*** testPlusGrand()");
+		testCasPlusGrand(new int[]{0},0,0);
+		testCasPlusGrand(new int[]{7, 3, 50, 7, 9}, 1, 4);
+		testCasPlusGrand(new int[]{89, 3, 71, 70, 9, 1, 13}, 2, 3);
+	}
+
+	/**
+	 * Test un appel de la méthode plusGrand
+	 * @param t : tableau dans lequel piocher
+	 * @param i : i eme valeur la plus grand a piocher
+	 * @param result indice attendu
+	 */
+	void testCasPlusGrand(int[] t, int i, int result) {
+		// Affichage
+		System.out.print("plusGrand(" + tab2str(t) + ", " + i + ") = " + result + "\t : ");
+		// Appel
+		int resExec = plusGrand(t, i);
+		// Vérification
+		if (resExec == result) {
+			System.out.println("OK");
+		} else {
+			System.err.println("ERREUR");
+		}
+	}
 	
 	
 	/**
 	 * Test l'appel de la méthode creerTableau
 	 */
 	void testCreerTableau() {
-		System.out.println();
-		System.out.println("*** testCreerTableau()");
-		testCasCreerTableau(2, new int[]{1, 3});
-		testCasCreerTableau(5, new int[]{1, 3, 5, 7, 9});
-		testCasCreerTableau(7, new int[]{1, 3, 5, 7, 9, 11, 13});
+		System.out.println("\n*** testCreerTableau()");
+		testCasCreerTableau(3, new int[] {1, 3, 5});  // Test 1: 3 lignes
+		testCasCreerTableau(2, new int[] {1, 3});     // Test 2: 2 lignes
+		testCasCreerTableau(5, new int[] {1, 3, 5, 7, 9}); // Test 3: 5 lignes
 	}
 
 	/**
@@ -525,13 +592,25 @@ class MarienbadJvsO {
 	 * @param nbLignes: nombre de lignes du jeu
 	 * @param result tableau attendu
 	 */
-	void testCasCreerTableau(int nbLignes, int[] result) {
-		// Affichage
-		System.out.print("creerTableau(" + nbLignes + ") = " + tab2str(result) + "\t : ");
-		// Appel
-		int[] resExec = creerTableau(nbLignes);
-		// Vérification
-		if (tab2str(resExec).equals(tab2str(result))) {
+	void testCasCreerTableau(int nbLignes, int[] expectedResult) {
+		// Affichage du cas testé
+		System.out.print("creerTableau(" + nbLignes + ") = " + tab2str(expectedResult) + " :\t");
+
+		// Vérification du résultat
+		int[] result = creerTableau(nbLignes);
+		boolean testOk = true;
+		if (result.length == expectedResult.length) {
+			for (int i = 0; i < result.length; i++) {
+				if (result[i] != expectedResult[i]) {
+					testOk = false;
+					break;
+				}
+			}
+		} else {
+			testOk = false;
+		}
+
+		if (testOk) {
 			System.out.println("OK");
 		} else {
 			System.err.println("ERREUR");
