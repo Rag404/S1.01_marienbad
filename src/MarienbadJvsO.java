@@ -244,21 +244,12 @@ class MarienbadJvsO {
 	 */
 	void difficulte3(int[] allumettes) {
 		// Compte le nombre de lignes non vides
-		int lignesPleines = 0;
-		for (int i = 0; i < allumettes.length; i++) {
-			if (allumettes[i] != 0) {
-				lignesPleines += 1;
-			}
-		}
+		int lignesPleines = nbLignesPleines(allumettes);
 
 		// Cas ou il ne reste qu'une seule ligne avec des allumettes
 		// Prend toutes les allumettes
 		if (lignesPleines == 1) {
-			for (int i = 0; i < allumettes.length; i++) {
-				if (allumettes[i] != 0) {
-					allumettes[i] = 0;
-				}
-			}
+			viderTab(allumettes);
 		}
 		
 		// Cas où il reste 1 ligne ou plus
@@ -291,6 +282,7 @@ class MarienbadJvsO {
 			}
 			
 			// Si aucun coup stratégique n'a été trouvé
+			// Joue un coup au hasard (applique la difficulté 1)
 			if (!coupTrouve) {
 				difficulte1(allumettes);
 				System.out.println("Coup non trouve :(\nLe robot n'a pas trouve de coup intelligent a faire et joue aleatoirement");
@@ -304,21 +296,12 @@ class MarienbadJvsO {
 	 */
 	void difficulte4(int[] allumettes) {
 		// Compte le nombre de lignes non vides
-		int lignesPleines = 0;
-		for (int i = 0; i < allumettes.length; i++) {
-			if (allumettes[i] != 0) {
-				lignesPleines += 1;
-			}
-		}
+		int lignesPleines = nbLignesPleines(allumettes);
 
 		// Cas ou il ne reste qu'une seule ligne avec des allumettes
 		// Prend toutes les allumettes
 		if (lignesPleines == 1) {
-			for (int i = 0; i < allumettes.length; i++) {
-				if (allumettes[i] != 0) {
-					allumettes[i] = 0;
-				}
-			}
+			viderTab(allumettes);
 		}
 
 		// Cas où il reste plus de 6 lignes avec des allumettes
@@ -362,6 +345,7 @@ class MarienbadJvsO {
 			}
 			
 			// Si aucun coup stratégique n'a été trouvé
+			// Joue un coup au hasard (applique la difficulté 1)
 			if (!coupTrouve) {
 				difficulte1(allumettes);
 				System.out.println("Coup non trouve :(\nLe robot n'a pas trouve de coup intelligent a faire et joue aleatoirement");
@@ -373,6 +357,22 @@ class MarienbadJvsO {
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 *                     Fonctions stratégiques                      *
 	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+	
+	
+	/**
+	 * Compte le nombre de lignes non vide dans le tableau
+	 * @param allumettes: le tableau de jeu
+	 * @return le nombre de lignes non vides
+	 */
+	int nbLignesPleines(int[] allumettes) {
+		int lignesPleines = 0;
+		for (int i = 0; i < allumettes.length; i++) {
+			if (allumettes[i] != 0) {
+				lignesPleines += 1;
+			}
+		}
+		return lignesPleines;
+	}
 	
 	/**
 	 * Détermine si la positition est gagnante pour la stratégie de l'ordinateur
@@ -421,6 +421,16 @@ class MarienbadJvsO {
 	 *                     Fonctions utilitaires                       *
 	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 	
+	
+	/**
+	 * Remplace tout les éléments du tableau par des zéros
+	 * @param tab: le tableau à vider
+	 */
+	void viderTab(int[] tab) {
+		for (int i=0; i < tab.length; i++) {
+			tab[i] = 0;
+		}
+	}
 	
 	/**
 	 * Convertit un tableau de String en sa représentation en String

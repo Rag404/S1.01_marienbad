@@ -171,6 +171,28 @@ class MarienbadJvsJ {
 	
 	
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	 *                     Fonctions utilitaires                       *
+	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+	
+	
+	/**
+	 * Convertit un tableau d'entiers en sa représentation en String
+	 * @param tab: le tableau à convertir
+	 * @return le tableau convertit
+	 */
+	String tab2str(int[] tab) {
+		String str = "";
+		for (int i=0; i < tab.length-1; i++) {
+			str += tab[i] + ", ";
+		}
+		if (tab.length > 0) {
+			str += tab[tab.length-1];
+		}
+		return "{" + str + "}";
+	}
+	
+	
+	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 *                       Fonctions de test                         *
 	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 	
@@ -293,27 +315,5 @@ class MarienbadJvsJ {
 		} else {
 			System.err.println("ERREUR");
 		}
-	}
-	
-	
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	 *                     Fonctions utilitaires                       *
-	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-	
-	
-	/**
-	 * Convertit un tableau d'entiers en sa représentation en String
-	 * @param tab: le tableau à convertir
-	 * @return le tableau convertit
-	 */
-	String tab2str(int[] tab) {
-		String str = "";
-		for (int i=0; i < tab.length-1; i++) {
-			str += tab[i] + ", ";
-		}
-		if (tab.length > 0) {
-			str += tab[tab.length-1];
-		}
-		return "{" + str + "}";
 	}
 }
