@@ -248,16 +248,12 @@ class MarienbadJvsJ {
 
 		// Vérification du résultat
 		int[] result = creerTableau(nbLignes);
-		boolean testOk = true;
-		if (result.length == expectedResult.length) {
-			for (int i = 0; i < result.length; i++) {
-				if (result[i] != expectedResult[i]) {
-					testOk = false;
-					break;
-				}
-			}
-		} else {
-			testOk = false;
+		boolean testOk = result.length == expectedResult.length;
+		
+		int i = 0;
+		while (testOk && i < result.length) {
+			testOk = (result[i] != expectedResult[i]);
+			i++;
 		}
 
 		if (testOk) {
@@ -284,11 +280,10 @@ class MarienbadJvsJ {
 		
 		// Vérification du résultat
 		boolean testOk = true;
-		for (int i = 0; i < allumettes.length; i++) {
-			if (allumettes[i] != expectedResult[i]) {
-				testOk = false;
-				break;
-			}
+		int i = 0;
+		while (testOk && i < allumettes.length) {
+			testOk = (allumettes[i] == expectedResult[i]);
+			i++;
 		}
 
 		if (testOk) {
