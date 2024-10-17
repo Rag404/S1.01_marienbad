@@ -188,7 +188,7 @@ class MarienbadJvsO {
 		if(nbTours%2 == 1){
 			System.out.println("Felicitation a " + j + " qui remporte la partie!");
 		}else{
-			System.out.println(" O,nO Dommage, c'est l'ordinnateur qui gagne... ");
+			System.out.println(" O,nO Dommage, c'est l'ordinateur qui gagne... ");
 		}
 		
 		if (ordre == true) nbTours -= 1;
