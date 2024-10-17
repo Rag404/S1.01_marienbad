@@ -192,7 +192,7 @@ class MarienbadJvsO {
 		}
 		
 		if (ordre == true) nbTours -= 1;
-		System.out.println("Partie gagnee en " + nbTours + "tours");
+		System.out.println("Partie gagnee en " + nbTours + " tours");
 	}
 	
 	

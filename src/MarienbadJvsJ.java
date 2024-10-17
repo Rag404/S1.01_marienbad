@@ -47,7 +47,7 @@ class MarienbadJvsJ {
 		}else{
 			System.out.println("Felicitation a " + j2 + " qui remporte la partie!");
 		}
-		System.out.println("Partie gagnee en " + nbTours + "tours");
+		System.out.println("Partie gagnee en " + nbTours + " tours");
 	}
 	
 	/**
