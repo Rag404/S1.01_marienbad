@@ -590,9 +590,9 @@ class MarienbadJvsO {
 	}
 
 	/**
-	 * Test un appel de la méthode creerTableau
-	 * @param nbLignes: nombre de lignes du jeu
-	 * @param result tableau attendu
+	 * Teste un cas d'exécution de la fonction creerTableau()
+	 * @param nbLignes: nombre de lignes
+	 * @param expectedResult: le résultat attendu
 	 */
 	void testCasCreerTableau(int nbLignes, int[] expectedResult) {
 		// Affichage du cas testé
@@ -600,16 +600,12 @@ class MarienbadJvsO {
 
 		// Vérification du résultat
 		int[] result = creerTableau(nbLignes);
-		boolean testOk = true;
-		if (result.length == expectedResult.length) {
-			for (int i = 0; i < result.length; i++) {
-				if (result[i] != expectedResult[i]) {
-					testOk = false;
-					break;
-				}
-			}
-		} else {
-			testOk = false;
+		boolean testOk = result.length == expectedResult.length;
+		
+		int i = 0;
+		while (testOk && i < result.length) {
+			testOk = (result[i] == expectedResult[i]);
+			i++;
 		}
 
 		if (testOk) {
@@ -632,17 +628,18 @@ class MarienbadJvsO {
 	}
 
 	/**
-	 * Test un appel de la méthode jeuEstFini
+	 * Teste un cas d'exécution de la fonction jeuEstFini()
 	 * @param allumettes: tableau de jeu
-	 * @param result: valeur attendue
+	 * @param expectedResult: le résultat attendu
 	 */
-	void testCasJeuEstFini(int[] allumettes, boolean result) {
-		// Affichage
-		System.out.print("jeuEstFini(" + tab2str(allumettes) + ") = " + result + "\t : ");
-		// Appel
-		boolean resExec = jeuEstFini(allumettes);
-		// Vérification
-		if (resExec == result) {
+	void testCasJeuEstFini(int[] allumettes, boolean expectedResult) {
+		// Affichage du cas testé
+		System.out.print("jeuEstFini(" + tab2str(allumettes) + ") = " + expectedResult + ":\t");
+
+		// Vérification du résultat
+		boolean result = jeuEstFini(allumettes);
+		
+		if (result == expectedResult) {
 			System.out.println("OK");
 		} else {
 			System.err.println("ERREUR");

@@ -227,14 +227,15 @@ class MarienbadJvsJ {
 	}
 	
 	/**
-	 * Teste jeuEstFini()
+	 * Test la fonction jeuEstFini
 	 */
 	void testJeuEstFini() {
-		System.out.println("\n*** testJeuEstFini()");
-		testCasJeuEstFini(new int[] {0, 0, 0}, true);    // Test 1: toutes les lignes sont vides
-		testCasJeuEstFini(new int[] {1, 0, 0}, false);   // Test 2: une ligne a encore des allumettes
-		testCasJeuEstFini(new int[] {0, 2, 0}, false);   // Test 3: une ligne a encore des allumettes
-		testCasJeuEstFini(new int[] {},        true);    // Test 3: talbleau vide
+		System.out.println();
+		System.out.println("*** testJeuEstFini()");
+		testCasJeuEstFini(new int[]{0, 0, 0}, true);
+		testCasJeuEstFini(new int[]{1, 2, 0}, false);
+		testCasJeuEstFini(new int[]{0, 1, 0, 3}, false);
+		testCasJeuEstFini(new int[]{0, 0, 0, 0, 0, 0, 0}, true);
 	}
 	
 	/**
@@ -252,7 +253,7 @@ class MarienbadJvsJ {
 		
 		int i = 0;
 		while (testOk && i < result.length) {
-			testOk = (result[i] != expectedResult[i]);
+			testOk = (result[i] == expectedResult[i]);
 			i++;
 		}
 
