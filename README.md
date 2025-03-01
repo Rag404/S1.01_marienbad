@@ -739,3 +739,8 @@ nbLignesPleines({0, 0}) = 0 :   OK
 nbLignesPleines({}) = 0 :       OK
 ```
 </details>
+
+---
+
+> [!NOTE]
+> Notre code utilise la classe `SimpleInput` fournie et précompilée par nos professeurs.
