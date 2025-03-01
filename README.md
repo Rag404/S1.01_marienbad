@@ -40,7 +40,9 @@ tente d'y enlever le plus d'allumettes possible tout en appliquant la stratégie
 
 ## Exemples d'exécution
 
-**Exemple 1 (JvsJ) :**
+<details>
+<summary><b>Exemple 1 (JvsJ)<b></summary>
+
 ```
 jeu de
                  __  __            _            _               _
@@ -207,8 +209,11 @@ Nombre d'allumettes a enlever : 1
 Felicitation a Fred qui remporte la partie!
 Partie gagnee en 7tours
 ```
+</details>
 
-**Exemple 2 (JvsJ) :**
+<details>
+<summary><b>Exemple 2 (JvsJ)</b></summary>
+
 ```
 jeu de
                  __  __            _            _               _
@@ -275,8 +280,11 @@ Nombre d'allumettes a enlever : 1
 Felicitation a Laurel qui remporte la partie!
 Partie gagnee en 3 tours
 ```
+</details>
 
-**Exemple 3 (JvsO niveau 1) :**
+<details>
+<summary><b>Exemple 3 (JvsO niveau 1)</b></summary>
+
 ```
 jeu de
                  __  __            _            _               _
@@ -363,8 +371,11 @@ Nombre d'allumettes a enlever : 1
 Felicitation a Jacques qui remporte la partie!
 Partie gagnee en 4 tours
 ```
+</details>
 
-**Exemple 4 (JvsO niveau 2) :**
+<details>
+<summary><b>Exemple 4 (JvsO niveau 2)</b></summary>
+
 ```
 jeu de
                  __  __            _            _               _
@@ -439,8 +450,11 @@ Nombre d'allumettes a enlever : 1
  O,nO Dommage, c'est l'ordinateur qui gagne...
 Partie gagnee en 3 tours
 ```
+</details>
 
-**Exemple 5 (JvsO niveau 3) :**
+<details>
+<summary><b>Exemple 5 (JvsO niveau 3)</b></summary>
+
 ```
 jeu de
                  __  __            _            _               _
@@ -536,8 +550,11 @@ Nombre d'allumettes a enlever : 5
  O,nO Dommage, c'est l'ordinateur qui gagne...
 Partie gagnee en 5 tours
 ```
+</details>
 
-**Exemple 6 (JvsO niveau 4) :**
+<details>
+<summary><b>Exemple 6 (JvsO niveau 4)</b></summary>
+
 ```
 jeu de
                  __  __            _            _               _
@@ -644,10 +661,13 @@ Nombre d'allumettes a enlever : 1
  O,nO Dommage, c'est l'ordinateur qui gagne...
 Partie gagnee en 6 tours
 ```
+</details>
 
 ## Tests unitaires
 
-**Version JvsJ :**
+<details>
+<summary><b>Version JvsJ</b></summary>
+
 ```
 *** testCreerTableau()
 creerTableau(3) = {1, 3, 5} :   OK
@@ -665,8 +685,11 @@ jeuEstFini({1, 2, 0}) = false:  OK
 jeuEstFini({0, 1, 0, 3}) = false:       OK
 jeuEstFini({0, 0, 0, 0, 0, 0, 0}) = true:       OK
 ```
+</details>
 
-**Version JvsO :**
+<details>
+<summary><b>Version JvsO</b></summary>
+
 ```
 *** testEstPositionGagnante()
 estPositionGagnante({1, 2, 3}) = true    : OK
@@ -715,3 +738,4 @@ nbLignesPleines({5, 0, 12, 0}) = 2 :    OK
 nbLignesPleines({0, 0}) = 0 :   OK
 nbLignesPleines({}) = 0 :       OK
 ```
+</details>
